@@ -26,6 +26,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import android.widget.CheckBox;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
@@ -129,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     Log.e("MainActivity", "Ошибка: " + responseCode + " " + contentType);
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Файл не найден. Вы будете переадресованы на главную страницу сайта.", Toast.LENGTH_SHORT).show());
-                    String fallbackUrl = "https://ntv.ifmo.ru/file/journal/2.pdf";
                     runOnUiThread(() -> {
+                        Toast.makeText(MainActivity.this, "Файл не найден. Вы будете переадресованы на главную страницу сайта.", Toast.LENGTH_SHORT).show();
+                        String fallbackUrl = "https://ntv.ifmo.ru/file/journal/2.pdf";
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl));
                         startActivity(browserIntent);
                     });
@@ -207,15 +208,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showPopupWindow() {
+        // Создаем пользовательский макет для диалога
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_popup, null);
+        CheckBox checkBoxDontShowAgain = dialogView.findViewById(R.id.checkboxDontShowAgain);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Инструкция")
-                .setMessage("Это приложение позволяет скачивать и просматривать журналы Научно-технического вестника.")
-                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                .setNegativeButton("Не показывать снова", (dialog, which) -> {
+                .setView(dialogView)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    // Сохраняем состояние чекбокса при нажатии "OK"
                     SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                    preferences.edit().putBoolean(KEY_SHOW_POPUP, false).apply();
+                    if (checkBoxDontShowAgain.isChecked()) {
+                        preferences.edit().putBoolean(KEY_SHOW_POPUP, false).apply();
+                    }
                     dialog.dismiss();
                 })
+                .setCancelable(true)
                 .show();
     }
 }
