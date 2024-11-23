@@ -29,7 +29,7 @@
 
 При запуске приложения пользователю выводится всплывающее уведомление (`popupWindow`), с краткой инструкцией по использованию приложения, с чекбоксом «Больше не показывать» и кнопкой «ОК».
 <p align="center">
-<img src="https://sun9-59.userapi.com/impg/6k0rkQw5T8rhtX8abgG5VOG_iOYX5qk0oUtoMQ/JCYZVcJjxs0.jpg?size=720x1520&quality=95&sign=d3a506f18034523c925dd7d82a0176cd&type=album" width="250" height="500"> 
+<img src="https://sun9-38.userapi.com/impg/9e_YC09cGp94zPAhaaAfvgvDvzESx8Bq9EHkuA/IVa-93YIlBc.jpg?size=720x1520&quality=95&sign=761e690b178af1b58054def95153ab85&type=album" width="250" height="500"> 
 </p>
 
 Если чекбокс был отмечен и нажата кнопка ОК, необходимо произвести сохранение данного параметра используя `SharedPreferences`. При следующем запуске приложения производить проверку параметра, и не выводить всплывающее сообщение, если чекбокс был отмечен.
