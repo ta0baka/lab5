@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     Log.e("MainActivity", "Ошибка: " + responseCode + " " + contentType);
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Файл не найден. Вы будете переадресованы на главную страницу сайта.", Toast.LENGTH_SHORT).show());
                     String fallbackUrl = "https://ntv.ifmo.ru/file/journal/2.pdf";
                     runOnUiThread(() -> {
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fallbackUrl));
